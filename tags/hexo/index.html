@@ -6,21 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>静态博客hexo部署及使用 | Moc的博客</title>
+  <title>Tag: hexo | Moc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##前言
-本篇博客主要总结利用github Pages和hexo部署免费独立静态博客。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="静态博客hexo部署及使用">
-<meta property="og:url" content="http://yoursite.com/2017/01/05/静态博客hexo部署及使用/index.html">
+  <meta name="description" content="你怎么过一天，就怎么过一生">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Moc的博客">
+<meta property="og:url" content="http://yoursite.com/tags/hexo/index.html">
 <meta property="og:site_name" content="Moc的博客">
-<meta property="og:description" content="##前言
-本篇博客主要总结利用github Pages和hexo部署免费独立静态博客。">
-<meta property="og:updated_time" content="2017-01-05T06:51:50.000Z">
+<meta property="og:description" content="你怎么过一天，就怎么过一生">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="静态博客hexo部署及使用">
-<meta name="twitter:description" content="##前言
-本篇博客主要总结利用github Pages和hexo部署免费独立静态博客。">
+<meta name="twitter:title" content="Moc的博客">
+<meta name="twitter:description" content="你怎么过一天，就怎么过一生">
   
     <link rel="alternative" href="/atom.xml" title="Moc的博客" type="application/atom+xml">
   
@@ -174,93 +170,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-静态博客hexo部署及使用" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      静态博客hexo部署及使用
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/01/05/静态博客hexo部署及使用/" class="archive-article-date">
+  	<time datetime="2017-01-05T02:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-05</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/01/05/静态博客hexo部署及使用/">静态博客hexo部署及使用</a>
     </h1>
   
 
-        
-        <a href="/2017/01/05/静态博客hexo部署及使用/" class="archive-article-date">
-  	<time datetime="2017-01-05T02:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##前言</p>
-<p>本篇博客主要总结利用github Pages和hexo部署免费独立静态博客。<br><a id="more"></a></p>
-<h2 id="一、部署前准备"><a href="#一、部署前准备" class="headerlink" title="一、部署前准备"></a>一、部署前准备</h2><ul>
-<li><a href="http://github.com" target="_blank" rel="external">github账号</a></li>
-<li><a href="http://git-scm.com/download/win" target="_blank" rel="external">Git</a></li>
-<li><a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a></li>
-</ul>
-<p>如果你的电脑已经安装上述必备程序，那么恭喜你，接下来只需要使用npm即可完成hexo的安装。<br>如果你不清楚上面所列工具用途，请先花时间去了解下:</p>
-<ul>
-<li><a href="http://git-scm.com/book/zh/v2" target="_blank" rel="external">Git</a></li>
-<li><a href="https://github.com/" target="_blank" rel="external">GitHub</a></li>
-<li><a href="https://pages.github.com/" target="_blank" rel="external">GitHub Pages</a></li>
-<li><a href="https://hexo.io/zh-cn/" target="_blank" rel="external">Hexo</a></li>
-<li><a href="">Markdown</a></li>
-</ul>
-<h2 id="一、我的博客搭建流程"><a href="#一、我的博客搭建流程" class="headerlink" title="一、我的博客搭建流程"></a>一、我的博客搭建流程</h2><ol>
-<li>我们需要使用github来存放我们的博客文件,创建仓库wangycc.github.io</li>
-<li>创建2个分支：master与hexo</li>
-<li>设置hexo为默认分支(这个分支存放我们md原始文件备份)</li>
-<li>使用git clone <a href="https://github.com/wangycc/wangycc.github.io.git" target="_blank" rel="external">https://github.com/wangycc/wangycc.github.io.git</a> 拷贝仓库到本地</li>
-<li>在本地wangycc.github.io文件夹下通过Git bash依次执行npm install hexo、hexo init、npm install 和  npm install hexo-deployer-git –save（此时当前分支应显示为hexo）;</li>
-<li>修改_config.yml中的deploy参数，分支应为master</li>
-<li>依次执行git add .、git commit -m “…”、git push origin hexo提交网站相关的文件；</li>
-<li>执行hexo generate -d生成网站并部署到GitHub上。</li>
-</ol>
-<p>注:master 分支存放我们生成的静态网页、hexo分支用来存放Hexo生成的网站原始的文件，这样作为备份使用.这样一来，我们在github仓库就有2个分支了。</p>
-<blockquote>
-<p>关于日常的改动流程:在对md文件进行编辑之后，一次使用下列流程来进行管理</p>
-<ol>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git add .</div><div class="line">$ git commit -m <span class="string">" "</span></div><div class="line">$ git push origin hexo </div><div class="line"><span class="comment">#以上指令表示将推送我们博客原文件到Github以作备份(此时分支应该为hexo)</span></div></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo g <span class="_">-d</span> <span class="comment">#生成静态文件，发布网站到master分支.</span></div></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<h2 id="二、Hexo文件目录"><a href="#二、Hexo文件目录" class="headerlink" title="二、Hexo文件目录"></a>二、Hexo文件目录</h2><blockquote>
-<p>├── _config.yml #网站的配置信息<br>├── package.json #应用程序的信息<br>├── scaffolds    #模版 文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。<br>├── source    #资源文件夹是存放用户资源的地方<br>|   ├── _drafts<br>|   └── _posts<br>└── themes #主题 文件夹。Hexo 会根据主题来生成静态页面。</p>
-</blockquote>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -284,96 +223,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/01/05/静态博客hexo部署及使用/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
+  
+  
+    </div></section>
   
 
-
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="静态博客hexo部署及使用" data-title="静态博客hexo部署及使用" data-url="http://yoursite.com/2017/01/05/静态博客hexo部署及使用/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"wangyichen"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-  
-
-
+    
 
 
           </div>
@@ -396,9 +258,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
