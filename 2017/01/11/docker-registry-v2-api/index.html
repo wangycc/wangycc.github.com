@@ -6,17 +6,45 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: github | Moc的博客</title>
+  <title>Moc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="你怎么过一天，就怎么过一生">
-<meta property="og:type" content="website">
+  <meta name="description" content="等等###名词解释
+
+repository name(存储库名词)
+  存储库指在库中存储的镜像。/project/redis:latest
+
+语法：
+
+经典存储库名称由2级路径构成，每级路径小于30个字符，V2的api不强制要求这样的格式。
+每级路径名至少有一个小写字母或者数字，使用句号，破折号和下划线分割。更严格来说，它必须符合正则表达式：[a-z0-9]+[._-][a-z0-9]+) 
+多">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Moc的博客">
-<meta property="og:url" content="http://yoursite.com/tags/github/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/01/11/docker-registry-v2-api/index.html">
 <meta property="og:site_name" content="Moc的博客">
-<meta property="og:description" content="你怎么过一天，就怎么过一生">
+<meta property="og:description" content="等等###名词解释
+
+repository name(存储库名词)
+  存储库指在库中存储的镜像。/project/redis:latest
+
+语法：
+
+经典存储库名称由2级路径构成，每级路径小于30个字符，V2的api不强制要求这样的格式。
+每级路径名至少有一个小写字母或者数字，使用句号，破折号和下划线分割。更严格来说，它必须符合正则表达式：[a-z0-9]+[._-][a-z0-9]+) 
+多">
+<meta property="og:updated_time" content="2017-01-11T08:49:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Moc的博客">
-<meta name="twitter:description" content="你怎么过一天，就怎么过一生">
+<meta name="twitter:description" content="等等###名词解释
+
+repository name(存储库名词)
+  存储库指在库中存储的镜像。/project/redis:latest
+
+语法：
+
+经典存储库名称由2级路径构成，每级路径小于30个字符，V2的api不强制要求这样的格式。
+每级路径名至少有一个小写字母或者数字，使用句号，破折号和下划线分割。更严格来说，它必须符合正则表达式：[a-z0-9]+[._-][a-z0-9]+) 
+多">
   
     <link rel="alternative" href="/atom.xml" title="Moc的博客" type="application/atom+xml">
   
@@ -170,72 +198,431 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-docker-registry-v2-api" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="等等"><a href="#等等" class="headerlink" title="等等"></a>等等</h2><p>###名词解释</p>
+<ul>
+<li><p>repository name(存储库名词)</p>
+<p>  存储库指在库中存储的镜像。/project/redis:latest</p>
+<ul>
+<li><p>语法：</p>
+<ol>
+<li>经典存储库名称由2级路径构成，每级路径小于30个字符，V2的api不强制要求这样的格式。</li>
+<li>每级路径名至少有一个小写字母或者数字，使用句号，破折号和下划线分割。更严格来说，它必须符合正则表达式：[a-z0-9]+[._-][a-z0-9]+) </li>
+<li>多级路径用/分隔</li>
+<li>存储库名称总长度（包括/）不能超过256个字符</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>digest(摘要)</p>
+<p>  摘要是镜像每个层的唯一标示。虽然算法允许使用任意算法，但是为了兼容性应该使用sha256。例如sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b</p>
+<ol>
+<li><p>生成摘要的伪代码</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> hashlib</div><div class="line">C = <span class="string">'a small string'</span></div><div class="line">B = hashlib.sha256(C)</div><div class="line">D = <span class="string">'sha256:'</span> + B.hexdigest()</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<p>###镜像pull过程</p>
+<p>镜像由一个json清单和层叠文件组成，pull镜像的过程就是检索这两个组件的过程。拉去镜像的第一步就是获取清单，清单由下面几个字段组成: registry:5000/v2/redis/manifests/latest(获取redis:latest清单文件)</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td style="text-align:center">镜像名称</td>
+</tr>
+<tr>
+<td>tag</td>
+<td style="text-align:center">镜像当前版本的tag</td>
+</tr>
+<tr>
+<td>fsLayers</td>
+<td style="text-align:center">层描述列表(包括摘要)</td>
+</tr>
+<tr>
+<td>signature</td>
+<td style="text-align:center">一个JWS签名，用来验证清单内容</td>
+</tr>
+</tbody>
+</table>
+<pre><code>当获取清单之后，客户端需要验证前面(signature)，以确保名称和fsLayers层是有效的。确认后，客户端可以使用digest去下载各个fs层。在V2api中，层存储在blobs中已digest作为键值.
+
+1. 首先拉取镜像清单(pulling an Image Manifest)
+
+  $ HEAD /v2/&lt;image/manifests/&lt;reference&gt;#检查镜像清单是否存在
+  $ GET /v2/&lt;image&gt;/manifests/&lt;reference&gt;#拉取镜像清单
+  提示：reference可是是tag或者是digest
+
+2. 开始拉取每个层(pulling a Layer)
+   $ GET /v2/&lt;image&gt;/blobs/&lt;digest&gt;
+   提示：digest是镜像每个fsLayer层的唯一标识。存在于清单的fsLayers里面。
+</code></pre><p>###Push镜像过程</p>
+<p> 推送镜像和拉取镜像过程相反,先推各个层到registry仓库，然后上传清单.</p>
+<ol>
+<li><p>Pushing a Layer(上传层)</p>
+<p>上传层分为2步,第一步使用post请求在registry仓库启动上传服务,<br>返回一个url，这个url用来上传数据和检查状态。</p>
+<ul>
+<li><p>首先Existing Layers(检查层是否存在)</p>
+<blockquote>
+<p>$ HEAD /v2/image/blobs/<digest></digest></p>
+<p>若返回200 OK 则表示存在，不用上传</p>
+</blockquote>
+</li>
+<li><p>开始上传服务(Starting An Upload)</p>
+<blockquote>
+<p>$POST /v2/image/blobs/uploads/</p>
+<p>如果post请求返回202 accepted，一个url会在location字段返回.</p>
+</blockquote>
+<pre><code>202 Accepted
+Location: /v2/\&lt;image&gt;/blobs/uploads/\&lt;uuid&gt;
+Range: bytes=0-&lt;offset&gt;
+Content-Length: 0
+Docker-Upload-UUID: &lt;uuid&gt; # 可以用来查看上传状态和实现断点续传
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<pre><code>- 开始上传层(Uploging the Layer)
+
+  1. 上传进度(Upload Progress)
+        &gt;$ GET /v2/\&lt;image&gt;/blobs/uploads/\&lt;uuid&gt;
+
+        &gt;返回
+
+            204 No Content
+            Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+            Range: bytes=0-&lt;offset&gt;
+            Docker-Upload-UUID: &lt;uuid&gt;
+
+    2. 整块上传(Monolithic Upload)
+
+      &gt; PUT /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;?digest=\&lt;digest&gt;
+
+      &gt; Content-Length: \&lt;size of layer&gt;
+
+      &gt; Content-Type: application/octet-stream
+</code></pre><p>\<layer binary="" data=""></layer></p>
+<pre><code>3. 分块上传(Chunked Upload)
+
+    &gt; PATCH /v2/\&lt;name&gt;/blobs/uploads/\&lt;uuid&gt;
+
+    &gt; Content-Length: \&lt;size of chunk&gt;
+
+    &gt; Content-Range: \&lt;start of range&gt;-\&lt;end of range&gt;
+
+    &gt; Content-Type: application/octet-stream
+    \&lt;Layer Chunk Binary Data&gt;
+
+    如果服务器不接受这个块，则返回:
+
+          416 Requested Range Not Satisfiable
+          Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+          Range: 0-&lt;last valid range&gt;
+          Content-Length: 0
+          Docker-Upload-UUID: &lt;uuid&gt;
+
+     成功则返回：
+
+         202 Accepted
+        Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+        Range: bytes=0-&lt;offset&gt;
+        Content-Length: 0
+        Docker-Upload-UUID: &lt;uuid&gt;
+</code></pre><ul>
+<li><p>上传完成(Completed Upload)</p>
+<p> 分块上传在最后一块上传完毕后，需要提交一个上传完成的请求</p>
+<pre><code>&gt; PUT /v2/&lt;name&gt;/blob/uploads/&lt;uuid&gt;?digest=&lt;digest&gt;
+&gt; Content-Length: &lt;size of chunk&gt;
+&gt; Content-Range: &lt;start of range&gt;-&lt;end of range&gt;
+&gt; Content-Type: application/octet-stream
+&lt;Last Layer Chunk Binary Data&gt;
+</code></pre><p>   返回：</p>
+<pre><code>201 Created
+Location: /v2/&lt;name&gt;/blobs/&lt;digest&gt;
+Content-Length: 0
+Docker-Content-Digest: &lt;digest&gt;
+</code></pre><ul>
+<li><p>取消上传(Canceling an Upload)</p>
+<p> 这个请求执行后UUID将失效，当上传超时或者没有完成，客户端都应该发送这个请求。</p>
+<blockquote>
+<p>DELETE /v2/image/blobs/uploads/\<uuid></uuid></p>
+</blockquote>
+</li>
+<li><p>交叉上传(Cross Repository Blob Mount)</p>
+<p>可以把客户端有访问权限的已有存储库中的层挂载到当前存储库中</p>
+<blockquote>
+<p>POST /v2/<name>/blobs/uploads/?mount=<digest>&amp;from=<repository name=""><br>Content-Length: 0</repository></digest></name></p>
+</blockquote>
+<p>成功返回：</p>
+<pre><code>201 Created
+Location: /v2/&lt;name&gt;/blobs/&lt;digest&gt;
+Content-Length: 0
+Docker-Content-Digest: &lt;digest&gt;
+</code></pre><p>失败返回:</p>
+<pre><code>202 Accepted
+Location: /v2/&lt;name&gt;/blobs/uploads/&lt;uuid&gt;
+Range: bytes=0-&lt;offset&gt;
+Content-Length: 0
+Docker-Upload-UUID: &lt;uuid&gt;
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>删除层(Deleting a Layer)</p>
+<blockquote>
+<p>DELETE /v2/<image>/blobs/\<digest></digest></image></p>
+</blockquote>
+<p> 成功返回:</p>
+<pre><code>202 Accepted
+Content-Length: None
+</code></pre><p> 失败返回404错误</p>
+</li>
+<li><p>上传镜像清单(Pushing an Image Manifest)</p>
+<p> 我们上传完镜像层之后，就开始上传镜像清单</p>
+<pre><code>PUT /v2/&lt;name&gt;/manifests/&lt;reference&gt;
+Content-Type: &lt;manifest media type&gt;
+{
+&quot;name&quot;: &lt;name&gt;,
+&quot;tag&quot;: &lt;tag&gt;,
+&quot;fsLayers&quot;: [
+  {
+     &quot;blobSum&quot;: &lt;digest&gt;
+  },
+  ...
+]
+],
+&quot;history&quot;: &lt;v1 images&gt;,
+&quot;signature&quot;: &lt;JWS&gt;,
+...
+}
+</code></pre><p> 返回：</p>
+<pre><code>如果清单中有层(&quot;blobSum&quot;:&lt;digest&gt;)是未知的，则返回
+{
+ &quot;errors:&quot; [{
+         &quot;code&quot;: &quot;BLOB_UNKNOWN&quot;,
+         &quot;message&quot;: &quot;blob unknown to registry&quot;,
+         &quot;detail&quot;: {
+             &quot;digest&quot;: &lt;digest&gt;
+         }
+     },
+     ...
+  ]
+}
+</code></pre></li>
+</ol>
+<p>###检索功能</p>
+<ol>
+<li><p>列出所有存储库(Listing Repositories)</p>
+<blockquote>
+<p>GET /v2/_catalog</p>
+</blockquote>
+<p> 返回：</p>
+<pre><code>200 OK
+Content-Type: application/json
+{
+  &quot;repositories&quot;: [
+    &lt;name&gt;,
+    ...
+  ]
+}
+</code></pre></li>
+<li><p>列出部分存储库(Pagination)</p>
+<blockquote>
+<p>GET /v2/_catalog?n=<integer></integer></p>
+</blockquote>
+<p> Note： integer表示要列出库的个数</p>
+<p> 返回：</p>
+<pre><code>200 OK
+Content-Type: application/json
+Link: &lt;&lt;url&gt;?n=&lt;n from the request&gt;&amp;last=&lt;last repository in response&gt;&gt;; rel=&quot;next&quot;
+{
+  &quot;repositories&quot;: [
+    &lt;name&gt;,
+    ...
+  ]
+}
+</code></pre></li>
+<li><p>列出镜像所有tags(Listing Image Tags)</p>
+<blockquote>
+<p>GET /v2/image/tags/list</p>
+</blockquote>
+<p> 返回:</p>
+<pre><code>200 OK
+Content-Type: application/json
+{
+    &quot;name&quot;: &lt;name&gt;,
+    &quot;tags&quot;: [
+        &lt;tag&gt;,
+        ...
+    ]
+}
+</code></pre></li>
+<li><p>列出镜像部分tags(Pagination)</p>
+<blockquote>
+<p>DELETE /v2/image/tags/list?n=<integer></integer></p>
+</blockquote>
+<p> 返回：</p>
+<pre><code>200 OK
+Content-Type: application/json
+Link: &lt;&lt;url&gt;?n=&lt;n from the request&gt;&amp;last=&lt;last tag value from previous response&gt;&gt;; rel=&quot;next&quot;
+{
+  &quot;name&quot;: &lt;name&gt;,
+  &quot;tags&quot;: [
+    &lt;tag&gt;,
+    ...
+  ]
+}
+</code></pre></li>
+<li><p>删除镜像(Deleting an Image)</p>
+<blockquote>
+<p>DELETE /v2/image/manifests/<reference><br> 返回</reference></p>
+</blockquote>
+<pre><code>202 Accepted
+Content-Length: None
+</code></pre><p> 失败返回404错误</p>
+</li>
+</ol>
+<p>6.待更新</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/05/静态博客hexo部署及使用/" class="archive-article-date">
-  	<time datetime="2017-01-05T02:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/05/静态博客hexo部署及使用/">静态博客hexo部署及使用</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/01/11/docker-registry-v2-api/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/01/05/2017年一些展望/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2017年展望</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="docker-registry-v2-api" data-title="" data-url="http://yoursite.com/2017/01/11/docker-registry-v2-api/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wangyichen"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -258,9 +645,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
