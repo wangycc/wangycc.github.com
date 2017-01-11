@@ -8,43 +8,88 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Moc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="等等###名词解释
+  <meta name="description" content="Docker Registry V2 api###API清单
 
-repository name(存储库名词)
-  存储库指在库中存储的镜像。/project/redis:latest
 
-语法：
 
-经典存储库名称由2级路径构成，每级路径小于30个字符，V2的api不强制要求这样的格式。
-每级路径名至少有一个小写字母或者数字，使用句号，破折号和下划线分割。更严格来说，它必须符合正则表达式：[a-z0-9]+[._-][a-z0-9]+) 
-多">
+method
+path
+Entity
+Description
+
+
+
+
+GET
+/v2/
+Base
+Check that the endpoint implements Docker Registry API V2.
+
+
+
+
+
+GET
+/v2/\/tags/list
+Tags
+Fetch the tags under the rep">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Moc的博客">
 <meta property="og:url" content="http://yoursite.com/2017/01/11/docker-registry-v2-api/index.html">
 <meta property="og:site_name" content="Moc的博客">
-<meta property="og:description" content="等等###名词解释
+<meta property="og:description" content="Docker Registry V2 api###API清单
 
-repository name(存储库名词)
-  存储库指在库中存储的镜像。/project/redis:latest
 
-语法：
 
-经典存储库名称由2级路径构成，每级路径小于30个字符，V2的api不强制要求这样的格式。
-每级路径名至少有一个小写字母或者数字，使用句号，破折号和下划线分割。更严格来说，它必须符合正则表达式：[a-z0-9]+[._-][a-z0-9]+) 
-多">
-<meta property="og:updated_time" content="2017-01-11T08:49:26.000Z">
+method
+path
+Entity
+Description
+
+
+
+
+GET
+/v2/
+Base
+Check that the endpoint implements Docker Registry API V2.
+
+
+
+
+
+GET
+/v2/\/tags/list
+Tags
+Fetch the tags under the rep">
+<meta property="og:updated_time" content="2017-01-11T09:06:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Moc的博客">
-<meta name="twitter:description" content="等等###名词解释
+<meta name="twitter:description" content="Docker Registry V2 api###API清单
 
-repository name(存储库名词)
-  存储库指在库中存储的镜像。/project/redis:latest
 
-语法：
 
-经典存储库名称由2级路径构成，每级路径小于30个字符，V2的api不强制要求这样的格式。
-每级路径名至少有一个小写字母或者数字，使用句号，破折号和下划线分割。更严格来说，它必须符合正则表达式：[a-z0-9]+[._-][a-z0-9]+) 
-多">
+method
+path
+Entity
+Description
+
+
+
+
+GET
+/v2/
+Base
+Check that the endpoint implements Docker Registry API V2.
+
+
+
+
+
+GET
+/v2/\/tags/list
+Tags
+Fetch the tags under the rep">
   
     <link rel="alternative" href="/atom.xml" title="Moc的博客" type="application/atom+xml">
   
@@ -203,7 +248,134 @@ repository name(存储库名词)
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="等等"><a href="#等等" class="headerlink" title="等等"></a>等等</h2><p>###名词解释</p>
+        <h2 id="Docker-Registry-V2-api"><a href="#Docker-Registry-V2-api" class="headerlink" title="Docker Registry V2 api"></a>Docker Registry V2 api</h2><p>###API清单</p>
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th style="text-align:center">path</th>
+<th style="text-align:center">Entity</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td style="text-align:center">/v2/</td>
+<td style="text-align:center">Base</td>
+<td style="text-align:center">Check that the endpoint implements Docker Registry API V2.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>GET</td>
+<td style="text-align:center">/v2/\<image>/tags/list</image></td>
+<td style="text-align:center">Tags</td>
+<td style="text-align:center">Fetch the tags under the repository identified by name.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>GET</td>
+<td style="text-align:center">/v2/\<image>/manifests/\<referevce></referevce></image></td>
+<td style="text-align:center">Manifest</td>
+<td style="text-align:center">Fetch the manifest identified by nameand referencewhere referencecan be a tag or digest. A HEADrequest can also be issued to this endpoint to obtain resource information without receiving all data.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>put</td>
+<td style="text-align:center">/v2/\<image>/manifests/\<referevce></referevce></image></td>
+<td style="text-align:center">Manifest</td>
+<td style="text-align:center">Put the manifest identified by nameand referencewhere referencecan be a tag or digest.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>delete</td>
+<td style="text-align:center">/v2/\<image>/manifests/\<reference></reference></image></td>
+<td style="text-align:center">Manifest</td>
+<td style="text-align:center">Delete the manifest identified by nameand reference. Note that a manifest can only be deleted by digest.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>GET</td>
+<td style="text-align:center">/v2/\<image>/blobs/\<digest></digest></image></td>
+<td style="text-align:center">Blob</td>
+<td style="text-align:center">Retrieve the blob from the registry identified bydigest. A HEADrequest can also be issued to this endpoint to obtain resource information without receiving all data.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td style="text-align:center">/v2/\<image>/blobs/\<digest></digest></image></td>
+<td style="text-align:center">Blob</td>
+<td style="text-align:center">Delete the blob identified by nameand digest</td>
+</tr>
+<tr>
+<td>POST</td>
+<td style="text-align:center">/v2/\<image>/blobs/uploads/</image></td>
+<td style="text-align:center">Initiate Blob Upload</td>
+<td style="text-align:center">Initiate a resumable blob upload. If successful, an upload location will be provided to complete the upload. Optionally, if thedigest parameter is present, the request body will be used to complete the upload in a single request.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>GET</td>
+<td style="text-align:center">/v2/\<image>/blobs/uploads/\<uuid></uuid></image></td>
+<td style="text-align:center">Blob Upload</td>
+<td style="text-align:center">Retrieve status of upload identified byuuid. The primary purpose of this endpoint is to resolve the current status of a resumable upload.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td style="text-align:center">/v2/\<image>/blobs/uploads/\<uuid></uuid></image></td>
+<td style="text-align:center">Blob Upload</td>
+<td style="text-align:center">Upload a chunk of data for the specified upload.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>PUT</td>
+<td style="text-align:center">/v2/\<image>/blobs/uploads/\<uuid></uuid></image></td>
+<td style="text-align:center">Blob Upload</td>
+<td style="text-align:center">Complete the upload specified by uuid, optionally appending the body as the final chunk.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td style="text-align:center">/v2/\<image>/blobs/uploads/\<uuid></uuid></image></td>
+<td style="text-align:center">Blob Upload</td>
+<td style="text-align:center">Cancel outstanding upload processes, releasing associated resources. If this is not called, the unfinished uploads will eventually timeout.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>GET</td>
+<td style="text-align:center">/v2/_catalog</td>
+<td style="text-align:center">Catalog</td>
+<td style="text-align:center">Retrieve a sorted, json list of repositories available in the registry.</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>###名词解释</p>
 <ul>
 <li><p>repository name(存储库名词)</p>
 <p>  存储库指在库中存储的镜像。/project/redis:latest</p>
